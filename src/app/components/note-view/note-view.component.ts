@@ -6,7 +6,8 @@ import { Note } from '../../models/note.model';
 @Component({
   selector: 'app-note-view',
   imports: [NgIf, RouterLink],
-  templateUrl: './note-view.component.html'
+  templateUrl: './note-view.component.html',
+  styleUrl: './note-view.component.scss'
 })
 export class NoteViewComponent implements OnInit {
   note: Note | null = null;

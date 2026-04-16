@@ -13,7 +13,8 @@ import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-note-list',
   templateUrl: './note-list.component.html',
-    imports: [NgFor, NgIf, AsyncPipe, RouterLink], // Add required template directives here
+  styleUrl: './note-list.component.scss',
+  imports: [NgFor, NgIf, AsyncPipe, RouterLink], // Add required template directives here
 
 })
 export class NoteListComponent implements OnInit {

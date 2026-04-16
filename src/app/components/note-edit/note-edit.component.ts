@@ -9,7 +9,8 @@ import { updateNote } from '../../store/actions/note.actions';
 @Component({
   selector: 'app-note-edit',
   imports: [FormsModule, NgIf, RouterLink],
-  templateUrl: './note-edit.component.html'
+  templateUrl: './note-edit.component.html',
+  styleUrl: './note-edit.component.scss'
 })
 export class NoteEditComponent implements OnInit {
   noteId = '';

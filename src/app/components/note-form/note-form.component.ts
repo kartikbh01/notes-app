@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-note-form',
   templateUrl: './note-form.component.html',
+  styleUrl: './note-form.component.scss',
   imports: [FormsModule]
 })
 export class NoteFormComponent {

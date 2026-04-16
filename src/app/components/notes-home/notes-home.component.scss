@@ -1,0 +1,36 @@
+.notes-app-shell {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2.5rem 1rem 3rem;
+}
+
+.app-header {
+  margin-bottom: 1.5rem;
+  text-align: center;
+
+  h1 {
+    margin: 0;
+    font-size: clamp(2rem, 4vw, 2.5rem);
+  }
+
+  p {
+    margin: 0.5rem 0 0;
+    color: var(--text-secondary);
+  }
+}
+
+.app-content {
+  display: grid;
+  gap: 1rem;
+}
+
+app-note-form,
+app-note-list {
+  display: block;
+}
+
+@media (max-width: 640px) {
+  .notes-app-shell {
+    padding-top: 1.5rem;
+  }
+}
