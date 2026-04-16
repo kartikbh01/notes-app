@@ -1,0 +1,31 @@
+<section class="note-list-card">
+  <header class="section-header">
+    <h2>Saved notes</h2>
+    <p>Review your notes and remove the ones you no longer need.</p>
+  </header>
+
+  <ng-container *ngIf="notes$ | async as notes">
+    <div class="note-list-grid" *ngIf="notes.length > 0; else emptyState">
+      <article class="note-item" *ngFor="let note of notes">
+        <h3>{{ note.title }}</h3>
+        <p>{{ note.content }}</p>
+        <div class="note-actions">
+          <a
+            class="secondary-btn"
+            [routerLink]="['/notes', note.id]"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            View
+          </a>
+          <a class="primary-btn" [routerLink]="['/notes', note.id, 'edit']">Edit</a>
+          <button type="button" class="danger-btn" (click)="delete(note.id)">Delete</button>
+        </div>
+      </article>
+    </div>
+  </ng-container>
+
+  <ng-template #emptyState>
+    <p class="empty-state">No notes yet. Add your first note above.</p>
+  </ng-template>
+</section>

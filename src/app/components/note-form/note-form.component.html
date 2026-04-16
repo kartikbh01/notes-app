@@ -1,0 +1,29 @@
+<section class="note-form-card">
+  <header class="section-header">
+    <h2>Add a note</h2>
+    <p>Write a clear title and details for quick reference later.</p>
+  </header>
+
+  <div class="form-group">
+    <label for="note-title">Title</label>
+    <input
+      id="note-title"
+      class="note-input"
+      [(ngModel)]="title"
+      placeholder="Meeting summary"
+    />
+  </div>
+
+  <div class="form-group">
+    <label for="note-content">Content</label>
+    <textarea
+      id="note-content"
+      class="note-textarea"
+      [(ngModel)]="content"
+      placeholder="Write your note..."
+      rows="6"
+    ></textarea>
+  </div>
+
+  <button type="button" class="primary-btn" (click)="addNote()">Add note</button>
+</section>

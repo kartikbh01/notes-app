@@ -1,0 +1,44 @@
+<main class="notes-app-shell">
+  <section class="note-form-card" *ngIf="noteExists; else noteMissing">
+    <header class="section-header">
+      <h2>Edit note</h2>
+      <p>Update your note and save the latest version.</p>
+    </header>
+
+    <div class="form-group">
+      <label for="edit-note-title">Title</label>
+      <input
+        id="edit-note-title"
+        class="note-input"
+        [(ngModel)]="title"
+        placeholder="Update title"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="edit-note-content">Content</label>
+      <textarea
+        id="edit-note-content"
+        class="note-textarea"
+        [(ngModel)]="content"
+        rows="8"
+        placeholder="Update content"
+      ></textarea>
+    </div>
+
+    <div class="note-actions">
+      <button type="button" class="primary-btn" (click)="save()">Save changes</button>
+      <a class="text-link" routerLink="/">Cancel</a>
+    </div>
+  </section>
+
+  <ng-template #noteMissing>
+    <section class="note-detail-card">
+      <header class="section-header">
+        <h2>Note not found</h2>
+        <p>The note may have been deleted before you opened this page.</p>
+      </header>
+      <a class="text-link" routerLink="/">Back to notes</a>
+    </section>
+  </ng-template>
+</main>

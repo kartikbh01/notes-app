@@ -1,0 +1,23 @@
+<main class="notes-app-shell">
+  <section class="note-detail-card" *ngIf="note; else noteMissing">
+    <header class="section-header">
+      <h2>{{ note.title }}</h2>
+      <p>Read-only note view.</p>
+    </header>
+    <p class="note-detail-content">{{ note.content }}</p>
+    <div class="note-detail-actions">
+      <a class="text-link" routerLink="/">Back to notes</a>
+      <a class="secondary-btn" [routerLink]="['/notes', note.id, 'edit']">Edit</a>
+    </div>
+  </section>
+
+  <ng-template #noteMissing>
+    <section class="note-detail-card">
+      <header class="section-header">
+        <h2>Note not found</h2>
+        <p>The note may have been deleted or is unavailable in this tab.</p>
+      </header>
+      <a class="text-link" routerLink="/">Back to notes</a>
+    </section>
+  </ng-template>
+</main>
