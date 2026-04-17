@@ -1,3 +1,5 @@
+@use "styles/variables" as *;
+
 .notes-app-shell {
   max-width: 900px;
   margin: 0 auto;
@@ -6,11 +8,11 @@
 
 .note-form-card,
 .note-detail-card {
-  background: var(--card-color);
-  border: 1px solid var(--border-color);
+  @include themed(background, surface-1);
+  @include themed-border;
   border-radius: 16px;
   padding: 1.25rem;
-  box-shadow: var(--shadow-soft);
+  @include themed(box-shadow, shadow-soft);
 
   .section-header {
     margin-bottom: 1rem;
@@ -22,7 +24,7 @@
 
     p {
       margin: 0.35rem 0 0;
-      color: var(--text-secondary);
+      @include themed(color, text-secondary);
       font-size: 0.95rem;
     }
   }
@@ -43,16 +45,20 @@
   .note-input,
   .note-textarea {
     width: 100%;
-    border: 1px solid var(--border-color);
+    @include themed-border;
     border-radius: 10px;
     padding: 0.7rem 0.8rem;
     font: inherit;
-    color: var(--text-primary);
-    background: #fff;
+    @include themed(color, text-primary);
+    @include themed(background, surface-2);
 
     &:focus {
-      outline: 2px solid rgba(37, 99, 235, 0.2);
-      border-color: var(--accent-color);
+      outline: 2px solid theme(light, focus-ring);
+      @include themed(border-color, accent);
+
+      :host-context(body.theme-dark) & {
+        outline-color: theme(dark, focus-ring);
+      }
     }
   }
 
@@ -73,24 +79,24 @@
     border-radius: 10px;
     padding: 0.6rem 0.9rem;
     font-weight: 600;
-    color: #fff;
+    @include themed(color, text-on-accent);
     cursor: pointer;
     transition: background-color 0.2s ease;
-    background: var(--accent-color);
+    @include themed(background, accent);
 
     &:hover {
-      background: var(--accent-color-hover);
+      @include themed(background, accent-hover);
     }
   }
 }
 
 .text-link {
-  color: var(--accent-color);
+  @include themed(color, accent);
   text-decoration: none;
   font-weight: 600;
 
   &:hover {
-    color: var(--accent-color-hover);
+    @include themed(color, accent-hover);
   }
 }
 

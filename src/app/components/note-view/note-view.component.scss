@@ -1,3 +1,5 @@
+@use "styles/variables" as *;
+
 .notes-app-shell {
   max-width: 900px;
   margin: 0 auto;
@@ -5,11 +7,11 @@
 }
 
 .note-detail-card {
-  background: var(--card-color);
-  border: 1px solid var(--border-color);
+  @include themed(background, surface-1);
+  @include themed-border;
   border-radius: 16px;
   padding: 1.25rem;
-  box-shadow: var(--shadow-soft);
+  @include themed(box-shadow, shadow-soft);
 
   .section-header {
     margin-bottom: 1rem;
@@ -21,7 +23,7 @@
 
     p {
       margin: 0.35rem 0 0;
-      color: var(--text-secondary);
+      @include themed(color, text-secondary);
       font-size: 0.95rem;
     }
   }
@@ -30,7 +32,7 @@
     margin: 0 0 1rem;
     white-space: pre-wrap;
     line-height: 1.6;
-    color: #1f2937;
+    @include themed(color, text-primary);
   }
 
   .note-detail-actions {
@@ -41,12 +43,12 @@
   }
 
   .text-link {
-    color: var(--accent-color);
+    @include themed(color, accent);
     text-decoration: none;
     font-weight: 600;
 
     &:hover {
-      color: var(--accent-color-hover);
+      @include themed(color, accent-hover);
     }
   }
 
@@ -55,16 +57,16 @@
     border-radius: 10px;
     padding: 0.6rem 0.9rem;
     font-weight: 600;
-    color: #fff;
+    @include themed(color, text-on-accent);
     cursor: pointer;
     transition: background-color 0.2s ease;
-    background: #374151;
+    @include themed(background, btn-secondary-bg);
     text-decoration: none;
     display: inline-flex;
     align-items: center;
 
     &:hover {
-      background: #1f2937;
+      @include themed(background, btn-secondary-hover);
     }
   }
 }

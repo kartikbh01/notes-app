@@ -1,11 +1,42 @@
+@if (theme$ | async; as theme) {
 <main class="notes-app-shell">
   <header class="app-header">
-    <h1>Notes</h1>
-    <p>Capture ideas, tasks, and reminders in one place.</p>
+    <div class="header-top-row">
+      <h1>Notes</h1>
+
+      <div class="header-actions">
+        <label class="theme-toggle">
+          <span>{{ theme === "dark" ? "Dark" : "Light" }}</span>
+
+          <label class="switch">
+            <input
+              type="checkbox"
+              [checked]="theme === 'dark'"
+              (change)="toggleTheme($any($event.target).checked)"
+              aria-label="Toggle dark mode"
+            />
+            <span class="slider"></span>
+          </label>
+        </label>
+
+        <button type="button" class="add-note-btn" (click)="openFormModal()">
+          <span aria-hidden="true">+</span>
+          <span>Add note</span>
+        </button>
+      </div>
+    </div>
   </header>
 
   <section class="app-content">
-    <app-note-form></app-note-form>
     <app-note-list></app-note-list>
   </section>
+
+  @if (isFormModalOpen) {
+  <div class="modal-overlay" (click)="closeFormModal()">
+    <section class="modal-card" (click)="$event.stopPropagation()">
+      <app-note-form (submitted)="closeFormModal()"> </app-note-form>
+    </section>
+  </div>
+  }
 </main>
+}

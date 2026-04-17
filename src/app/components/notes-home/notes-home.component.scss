@@ -1,3 +1,5 @@
+@use "styles/variables" as *;
+
 .notes-app-shell {
   max-width: 900px;
   margin: 0 auto;
@@ -6,16 +8,84 @@
 
 .app-header {
   margin-bottom: 1.5rem;
-  text-align: center;
+}
+
+.header-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
 
   h1 {
     margin: 0;
     font-size: clamp(2rem, 4vw, 2.5rem);
+    line-height: 1.1;
+  }
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.45rem 0.7rem;
+  border-radius: 8px;
+  @include themed-border;
+  @include themed(background, surface-1);
+  @include themed(color, text-primary);
+  font-weight: 600;
+  font-size: 0.84rem;
+
+  input {
+    @include themed(accent-color, accent);
+    cursor: pointer;
+  }
+}
+
+.add-note-btn {
+  @include themed-border(1px, solid, accent);
+  border-radius: 5px;
+  padding: 0.5rem 0.95rem;
+  @include themed(background, accent);
+  @include themed(color, text-on-accent);
+  font-weight: 600;
+  font-size: 0.92rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  cursor: pointer;
+  @include themed(box-shadow, shadow-soft);
+  transition: transform 0.15s ease, opacity 0.15s ease, box-shadow 0.15s ease;
+  white-space: nowrap;
+
+  span:first-child {
+    font-size: 1.05rem;
+    line-height: 1;
+    font-weight: 700;
   }
 
-  p {
-    margin: 0.5rem 0 0;
-    color: var(--text-secondary);
+  &:hover {
+    transform: translateY(-1px);
+    @include themed(background, accent-hover);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  &:focus-visible {
+    outline: 3px solid theme(light, focus-ring);
+    outline-offset: 2px;
+
+    :host-context(body.theme-dark) & {
+      outline-color: theme(dark, focus-ring);
+    }
   }
 }
 
@@ -24,13 +94,119 @@
   gap: 1rem;
 }
 
-app-note-form,
 app-note-list {
   display: block;
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  @include themed(background, overlay);
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  z-index: 50;
+}
+
+.modal-card {
+  width: min(100%, 680px);
+  max-height: 92vh;
+  overflow: auto;
+  @include themed(background, surface-1);
+  @include themed-border;
+  border-radius: 1rem;
+  // box-shadow: 0 14px 35px rgba(0, 0, 0, 0.25);
+  padding: 1rem;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.8rem;
+
+  h2 {
+    margin: 0;
+    font-size: 1.05rem;
+  }
+}
+
+.close-modal-btn {
+  border: none;
+  background: transparent;
+  @include themed(color, text-primary);
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
 }
 
 @media (max-width: 640px) {
   .notes-app-shell {
     padding-top: 1.5rem;
   }
+
+  .header-top-row {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .header-actions {
+    width: 100%;
+  }
+
+  .theme-toggle {
+    justify-content: space-between;
+  }
+
+  .add-note-btn {
+    flex: 1;
+  }
+}
+
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 24px;
+
+  input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  inset: 0;
+  background-color: #ccc;
+  border-radius: 24px;
+  transition: 0.3s;
+
+  &::before {
+    content: "";
+    position: absolute;
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    border-radius: 50%;
+    transition: 0.3s;
+  }
+}
+
+.switch input:checked + .slider {
+  background-color: #4f46e5; // primary color
+}
+
+.switch input:checked + .slider::before {
+  transform: translateX(20px);
 }

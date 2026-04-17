@@ -1,16 +1,6 @@
-:root {
-  --bg-color: #f3f4f6;
-  --card-color: #ffffff;
-  --text-primary: #111827;
-  --text-secondary: #6b7280;
-  --border-color: #e5e7eb;
-  --accent-color: #2563eb;
-  --accent-color-hover: #1d4ed8;
-  --danger-color: #dc2626;
-  --danger-color-hover: #b91c1c;
-  --shadow-soft: 0 8px 24px rgba(15, 23, 42, 0.08);
-}
+@use "./styles/variables" as *;
 
+// Global reset
 *,
 *::before,
 *::after {
@@ -23,8 +13,25 @@ body {
   min-height: 100%;
 }
 
+// Body styles
 body {
   font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
-  background: linear-gradient(180deg, #eef2ff 0%, var(--bg-color) 20%, var(--bg-color) 100%);
-  color: var(--text-primary);
+  background: linear-gradient(
+    180deg,
+    theme(light, bg-gradient-start) 0%,
+    theme(light, bg-gradient-end) 20%,
+    theme(light, bg-page) 100%
+  );
+  color: theme(light, text-primary);
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+body.theme-dark {
+  background: linear-gradient(
+    180deg,
+    theme(dark, bg-gradient-start) 0%,
+    theme(dark, bg-gradient-end) 20%,
+    theme(dark, bg-page) 100%
+  );
+  color: theme(dark, text-primary);
 }

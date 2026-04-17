@@ -7,19 +7,27 @@
   <ng-container *ngIf="notes$ | async as notes">
     <div class="note-list-grid" *ngIf="notes.length > 0; else emptyState">
       <article class="note-item" *ngFor="let note of notes">
-        <h3>{{ note.title }}</h3>
-        <p>{{ note.content }}</p>
+        <div class="note-content">
+          <h3>{{ note.title }}</h3>
+          <p>
+            {{ note.content.substring(0, 50) }}
+            {{ note.content.length > 50 ? "..." : "" }}
+          </p>
+        </div>
         <div class="note-actions">
           <a
             class="secondary-btn"
             [routerLink]="['/notes', note.id]"
-            target="_blank"
             rel="noopener noreferrer"
           >
             View
           </a>
-          <a class="primary-btn" [routerLink]="['/notes', note.id, 'edit']">Edit</a>
-          <button type="button" class="danger-btn" (click)="delete(note.id)">Delete</button>
+          <a class="primary-btn" [routerLink]="['/notes', note.id, 'edit']"
+            >Edit</a
+          >
+          <button type="button" class="danger-btn" (click)="delete(note.id)">
+            Delete
+          </button>
         </div>
       </article>
     </div>

@@ -1,75 +1,80 @@
+@use "styles/variables" as *;
+
 .note-form-card {
-  background: var(--card-color);
-  border: 1px solid var(--border-color);
-  border-radius: 16px;
-  padding: 1.25rem;
-  box-shadow: var(--shadow-soft);
+  @include themed(background, surface-1);
+  @include themed-border;
+  border-radius: 14px;
+  padding: 1rem;
+  @include themed(box-shadow, shadow-soft);
 
   .section-header {
     margin-bottom: 1rem;
 
     h2 {
       margin: 0;
-      font-size: 1.2rem;
+      font-size: 1.55rem;
+      @include themed(color, text-primary);
     }
 
     p {
-      margin: 0.35rem 0 0;
-      color: var(--text-secondary);
-      font-size: 0.95rem;
+      margin: 0.45rem 0 0;
+      @include themed(color, text-secondary);
+      font-size: 1.1rem;
     }
   }
 
   .form-group {
-    margin-bottom: 0.9rem;
+    margin-bottom: 0.85rem;
 
     label {
-      display: inline-block;
+      display: block;
       margin-bottom: 0.35rem;
-      font-weight: 600;
-      font-size: 0.92rem;
+      @include themed(color, text-primary);
+      font-weight: 500;
     }
   }
 
   .note-input,
   .note-textarea {
     width: 100%;
-    border: 1px solid var(--border-color);
+    display: block;
     border-radius: 10px;
-    padding: 0.7rem 0.8rem;
+    padding: 0.65rem 0.75rem;
+    @include themed-border;
+    @include themed(color, text-primary);
+    @include themed(background, surface-2);
     font: inherit;
-    color: var(--text-primary);
-    background: #fff;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
 
     &:focus {
-      outline: 2px solid rgba(37, 99, 235, 0.2);
-      border-color: var(--accent-color);
+      @include themed(border-color, accent);
+      box-shadow: 0 0 0 3px theme(light, focus-ring);
+      outline: none;
+
+      :host-context(body.theme-dark) & {
+        box-shadow: 0 0 0 3px theme(dark, focus-ring);
+      }
     }
   }
 
   .note-textarea {
     resize: vertical;
-    min-height: 130px;
+    min-height: 8rem;
   }
 
   .primary-btn {
+    @include themed(background, accent);
     border: 0;
     border-radius: 10px;
-    padding: 0.6rem 0.9rem;
+    @include themed(color, text-on-accent);
     font-weight: 600;
-    color: #fff;
+    font-size: 0.92rem;
+    padding: 0.55rem 0.9rem;
     cursor: pointer;
     transition: background-color 0.2s ease;
-    background: var(--accent-color);
 
     &:hover {
-      background: var(--accent-color-hover);
+      @include themed(background, accent-hover);
     }
-  }
-}
-
-@media (max-width: 640px) {
-  .note-form-card {
-    padding: 1rem;
   }
 }

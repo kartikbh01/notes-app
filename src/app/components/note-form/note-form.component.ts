@@ -1,5 +1,5 @@
 // note-form.component.ts
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { addNote } from '../../store/actions/note.actions';
 import { FormsModule } from '@angular/forms';
@@ -11,16 +11,21 @@ import { FormsModule } from '@angular/forms';
   imports: [FormsModule]
 })
 export class NoteFormComponent {
+  @Output() submitted = new EventEmitter<void>();
   title:string = '';
   content:string = '';
 
   constructor(private store: Store) {}
 
   addNote() {
+    if (!this.title.trim() && !this.content.trim()) {
+      return;
+    }
+
     const note = {
       id: crypto.randomUUID(),
-      title: this.title,
-      content: this.content
+      title: this.title.trim(),
+      content: this.content.trim()
     };
 
     // dispatch add note action
@@ -29,5 +34,6 @@ export class NoteFormComponent {
     // reset fields
     this.title = '';
     this.content = '';
+    this.submitted.emit();
   }
 }
