@@ -1,0 +1,40 @@
+<div class="auth-container">
+  <div class="auth-card">
+    <div class="card-header">
+      <h2>Welcome Back</h2>
+      <p>Log in to access your notes</p>
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="auth-form">
+      <div class="input-group">
+        <input type="email" id="email" formControlName="email" placeholder=" " autocomplete="email">
+        <label for="email">Email Address</label>
+        <div class="error-text" *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.invalid">
+          Please enter a valid email.
+        </div>
+      </div>
+
+      <div class="input-group">
+        <input type="password" id="password" formControlName="password" placeholder=" " autocomplete="current-password">
+        <label for="password">Password</label>
+        <div class="error-text" *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.invalid">
+          Password is required.
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn-primary" [disabled]="loginForm.invalid">
+          <span>Sign In</span>
+          <div class="btn-glow"></div>
+        </button>
+      </div>
+    </form>
+
+    <div class="auth-footer">
+      <p>Don't have an account? <a routerLink="/register">Create one</a></p>
+    </div>
+  </div>
+  
+  <div class="bg-shape shape-1"></div>
+  <div class="bg-shape shape-2"></div>
+</div>

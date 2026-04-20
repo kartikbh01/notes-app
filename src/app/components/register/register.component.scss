@@ -1,0 +1,190 @@
+@use "styles/variables" as *;
+
+:host {
+  display: block;
+  min-height: 100vh;
+}
+
+.auth-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-20px) scale(1.05); }
+}
+
+.auth-card {
+  position: relative;
+  z-index: 1;
+  @include themed(background, surface-1);
+  @include themed-border(1px, solid, border);
+  border-radius: 24px;
+  padding: 3rem;
+  width: 100%;
+  max-width: 440px;
+  @include themed(box-shadow, shadow-soft);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-sizing: border-box;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+}
+
+.card-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+
+  h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0 0 0.5rem 0;
+    @include themed(color, accent);
+  }
+
+  p {
+    @include themed(color, text-secondary);
+    margin: 0;
+    font-size: 0.95rem;
+  }
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.input-group {
+  position: relative;
+
+  input {
+    width: 100%;
+    @include themed(background, surface-2);
+    @include themed-border(1px, solid, border);
+    border-radius: 12px;
+    padding: 1.25rem 1rem 0.5rem;
+    @include themed(color, text-primary);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+
+    &:focus {
+      outline: none;
+      @include themed(border-color, accent);
+      @include themed(background, surface-1);
+      @include themed(box-shadow, focus-ring);
+    }
+
+    &:focus ~ label,
+    &:not(:placeholder-shown) ~ label {
+      transform: translateY(-50%) scale(0.85);
+      top: 12px;
+      @include themed(color, accent);
+    }
+  }
+
+  label {
+    position: absolute;
+    left: 1rem;
+    top: 1.5rem;
+    transform: translateY(-50%);
+    @include themed(color, text-secondary);
+    pointer-events: none;
+    transition: all 0.2s ease;
+    font-size: 1rem;
+  }
+
+  .error-text {
+    @include themed(color, danger);
+    font-size: 0.8rem;
+    margin-top: 0.4rem;
+    margin-left: 0.5rem;
+    animation: fadeIn 0.3s ease;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.btn-primary {
+  position: relative;
+  width: 100%;
+  padding: 1rem;
+  border: none;
+  border-radius: 12px;
+  @include themed(background, accent);
+  @include themed(color, text-on-accent);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  margin-top: 1rem;
+  box-sizing: border-box;
+  @include themed(box-shadow, shadow-soft);
+
+  span {
+    position: relative;
+    z-index: 2;
+  }
+
+  .btn-glow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    @include themed(background, accent-hover);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+  }
+
+  &:hover:not(:disabled) {
+    transform: translateY(-2px);
+    
+    .btn-glow {
+      opacity: 1;
+    }
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    @include themed(background, btn-secondary-bg);
+  }
+}
+
+.auth-footer {
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 0.95rem;
+  @include themed(color, text-secondary);
+
+  a {
+    @include themed(color, accent);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease;
+
+    &:hover {
+      @include themed(color, accent-hover);
+      text-decoration: underline;
+    }
+  }
+}

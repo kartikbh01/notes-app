@@ -1,0 +1,48 @@
+<div class="auth-container">
+  <div class="auth-card">
+    <div class="card-header">
+      <h2>Create Account</h2>
+      <p>Join us to start taking notes</p>
+    </div>
+
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="auth-form">
+      <div class="input-group">
+        <input type="text" id="name" formControlName="name" placeholder=" " autocomplete="name">
+        <label for="name">Full Name</label>
+        <div class="error-text" *ngIf="registerForm.get('name')?.touched && registerForm.get('name')?.invalid">
+          Name is required.
+        </div>
+      </div>
+
+      <div class="input-group">
+        <input type="email" id="email" formControlName="email" placeholder=" " autocomplete="email">
+        <label for="email">Email Address</label>
+        <div class="error-text" *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.invalid">
+          Please enter a valid email.
+        </div>
+      </div>
+
+      <div class="input-group">
+        <input type="password" id="password" formControlName="password" placeholder=" " autocomplete="new-password">
+        <label for="password">Password</label>
+        <div class="error-text" *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.invalid">
+          Password must be at least 6 characters.
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn-primary" [disabled]="registerForm.invalid">
+          <span>Sign Up</span>
+          <div class="btn-glow"></div>
+        </button>
+      </div>
+    </form>
+
+    <div class="auth-footer">
+      <p>Already have an account? <a routerLink="/login">Log in</a></p>
+    </div>
+  </div>
+  
+  <div class="bg-shape shape-1"></div>
+  <div class="bg-shape shape-2"></div>
+</div>

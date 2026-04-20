@@ -29,21 +29,25 @@
   gap: 0.6rem;
 }
 
-.theme-toggle {
+.theme-toggle-btn {
   display: inline-flex;
   align-items: center;
-  gap: 0.45rem;
-  padding: 0.45rem 0.7rem;
+  justify-content: center;
+  padding: 0.45rem;
   border-radius: 8px;
   @include themed-border;
   @include themed(background, surface-1);
   @include themed(color, text-primary);
-  font-weight: 600;
-  font-size: 0.84rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
 
-  input {
-    @include themed(accent-color, accent);
-    cursor: pointer;
+  &:hover {
+    @include themed(background, surface-2);
+  }
+
+  svg {
+    width: 20px;
+    height: 20px;
   }
 }
 
@@ -116,7 +120,7 @@ app-note-list {
   @include themed-border;
   border-radius: 1rem;
   // box-shadow: 0 14px 35px rgba(0, 0, 0, 0.25);
-  padding: 1rem;
+  // padding: 1rem;
 }
 
 .modal-header {
@@ -154,8 +158,8 @@ app-note-list {
     width: 100%;
   }
 
-  .theme-toggle {
-    justify-content: space-between;
+  .theme-toggle-btn {
+    align-self: flex-start;
   }
 
   .add-note-btn {
@@ -163,50 +167,4 @@ app-note-list {
   }
 }
 
-.theme-toggle {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-}
 
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 44px;
-  height: 24px;
-
-  input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-  }
-}
-
-.slider {
-  position: absolute;
-  cursor: pointer;
-  inset: 0;
-  background-color: #ccc;
-  border-radius: 24px;
-  transition: 0.3s;
-
-  &::before {
-    content: "";
-    position: absolute;
-    height: 18px;
-    width: 18px;
-    left: 3px;
-    bottom: 3px;
-    background-color: white;
-    border-radius: 50%;
-    transition: 0.3s;
-  }
-}
-
-.switch input:checked + .slider {
-  background-color: #4f46e5; // primary color
-}
-
-.switch input:checked + .slider::before {
-  transform: translateX(20px);
-}
