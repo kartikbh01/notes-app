@@ -15,14 +15,35 @@ import { RouterLink } from '@angular/router';
   templateUrl: './note-list.component.html',
   styleUrl: './note-list.component.scss',
   imports: [NgFor, NgIf, AsyncPipe, RouterLink], // Add required template directives here
-
 })
 export class NoteListComponent implements OnInit {
-
   notes$: Observable<Note[]>;
 
   constructor(private store: Store) {
     this.notes$ = this.store.select(selectAllNotes);
+  }
+
+  showDialog = false;
+  noteToDelete: string | null = null;
+  noteTitleToDelete: string = '';
+
+  openDialog(id: string, title: string) {
+    this.noteToDelete = id;
+    this.noteTitleToDelete = title;
+    this.showDialog = true;
+  }
+
+  closeDialog() {
+    this.showDialog = false;
+    this.noteToDelete = null;
+    this.noteTitleToDelete = '';
+  }
+
+  confirmDelete() {
+    if (this.noteToDelete) {
+      this.delete(this.noteToDelete);
+    }
+    this.closeDialog();
   }
 
   ngOnInit() {

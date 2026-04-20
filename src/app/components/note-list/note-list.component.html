@@ -25,9 +25,32 @@
           <a class="primary-btn" [routerLink]="['/notes', note.id, 'edit']"
             >Edit</a
           >
-          <button type="button" class="danger-btn" (click)="delete(note.id)">
+          <button
+            type="button"
+            class="danger-btn"
+            (click)="openDialog(note.id, note.title)"
+          >
             Delete
           </button>
+          <div class="dialog-backdrop" *ngIf="showDialog">
+            <div class="dialog-box">
+              <h3>Delete Note</h3>
+
+              <p>
+                Are you sure you want to delete
+                <strong>"{{ noteTitleToDelete }}"</strong>?
+              </p>
+
+              <div class="dialog-actions">
+                <button class="secondary-btn" (click)="closeDialog()">
+                  Cancel
+                </button>
+                <button class="danger-btn" (click)="confirmDelete()">
+                  Delete
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </article>
     </div>
