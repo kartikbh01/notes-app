@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { loadTheme } from './store/actions/ui.actions';
 import { selectTheme } from './store/selectors/ui.selectors';
+import { client } from './lib/appwrite';
 
 @Component({
   selector: 'app-root',
@@ -17,6 +18,7 @@ export class AppComponent implements OnInit {
   private readonly destroyRef = inject(DestroyRef);
 
   ngOnInit(): void {
+    client.ping();
     this.store.dispatch(loadTheme());
 
     this.store
