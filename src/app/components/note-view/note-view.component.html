@@ -1,4 +1,5 @@
 <main class="notes-app-shell">
+  <app-navbar [showAddNote]="false"></app-navbar>
   <section class="note-detail-card" *ngIf="note; else noteMissing">
     <header class="section-header">
       <h2>{{ note.title }}</h2>

@@ -6,93 +6,6 @@
   padding: 2.5rem 1rem 3rem;
 }
 
-.app-header {
-  margin-bottom: 1.5rem;
-}
-
-.header-top-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-
-  h1 {
-    margin: 0;
-    font-size: clamp(2rem, 4vw, 2.5rem);
-    line-height: 1.1;
-  }
-}
-
-.header-actions {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-}
-
-.theme-toggle-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.45rem;
-  border-radius: 8px;
-  @include themed-border;
-  @include themed(background, surface-1);
-  @include themed(color, text-primary);
-  cursor: pointer;
-  transition: all 0.2s ease;
-
-  &:hover {
-    @include themed(background, surface-2);
-  }
-
-  svg {
-    width: 20px;
-    height: 20px;
-  }
-}
-
-.add-note-btn {
-  @include themed-border(1px, solid, accent);
-  border-radius: 5px;
-  padding: 0.5rem 0.95rem;
-  @include themed(background, accent);
-  @include themed(color, text-on-accent);
-  font-weight: 600;
-  font-size: 0.92rem;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.4rem;
-  cursor: pointer;
-  @include themed(box-shadow, shadow-soft);
-  transition: transform 0.15s ease, opacity 0.15s ease, box-shadow 0.15s ease;
-  white-space: nowrap;
-
-  span:first-child {
-    font-size: 1.05rem;
-    line-height: 1;
-    font-weight: 700;
-  }
-
-  &:hover {
-    transform: translateY(-1px);
-    @include themed(background, accent-hover);
-  }
-
-  &:active {
-    transform: translateY(0);
-  }
-
-  &:focus-visible {
-    outline: 3px solid theme(light, focus-ring);
-    outline-offset: 2px;
-
-    :host-context(body.theme-dark) & {
-      outline-color: theme(dark, focus-ring);
-    }
-  }
-}
-
 .app-content {
   display: grid;
   gap: 1rem;
@@ -119,8 +32,6 @@ app-note-list {
   @include themed(background, surface-1);
   @include themed-border;
   border-radius: 1rem;
-  // box-shadow: 0 14px 35px rgba(0, 0, 0, 0.25);
-  // padding: 1rem;
 }
 
 .modal-header {
@@ -147,23 +58,6 @@ app-note-list {
 @media (max-width: 640px) {
   .notes-app-shell {
     padding-top: 1.5rem;
-  }
-
-  .header-top-row {
-    align-items: stretch;
-    flex-direction: column;
-  }
-
-  .header-actions {
-    width: 100%;
-  }
-
-  .theme-toggle-btn {
-    align-self: flex-start;
-  }
-
-  .add-note-btn {
-    flex: 1;
   }
 }
 

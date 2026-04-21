@@ -5,10 +5,11 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Note } from '../../models/note.model';
 import { updateNote } from '../../store/actions/note.actions';
+import { NavbarComponent } from '../navbar/navbar.component';
 
 @Component({
   selector: 'app-note-edit',
-  imports: [FormsModule, NgIf, RouterLink],
+  imports: [FormsModule, NgIf, RouterLink, NavbarComponent],
   templateUrl: './note-edit.component.html',
   styleUrl: './note-edit.component.scss'
 })

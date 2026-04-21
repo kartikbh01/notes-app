@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { NgIf } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Note } from '../../models/note.model';
+import { NavbarComponent } from '../navbar/navbar.component';
 
 @Component({
   selector: 'app-note-view',
-  imports: [NgIf, RouterLink],
+  imports: [NgIf, RouterLink, NavbarComponent],
   templateUrl: './note-view.component.html',
   styleUrl: './note-view.component.scss'
 })
