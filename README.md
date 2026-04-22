@@ -1,59 +1,52 @@
-# NotesApp
+# Notes App
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.23.
+This is a Notes Application built using **Angular** on the frontend and **Appwrite** for the backend. The app allows users to register, login, create, view, edit, and securely manage their personal notes.
 
-## Development server
+## Appwrite
 
-To start a local development server, run:
+The project integrates **Appwrite**, an open-source Backend-as-a-Service (BaaS), to handle core backend functionalities like user authentication and database operations. 
 
-```bash
-ng serve
-```
+The Appwrite SDK is configured centrally in `src/app/lib/appwrite.ts`:
+- **Client**: Establishes the connection to the Appwrite server using the endpoint and project ID stored in environment variables.
+- **Account**: Manages authentication, user sessions, and account details.
+- **Databases**: Manages data persistence for notes.
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Authentication Methods in Appwrite
 
-## Code scaffolding
+Appwrite's `Account` service exposes various methods to handle user authentication out-of-the-box:
+- `account.create(userId, email, password, name)`: Registers a new user.
+- `account.createEmailPasswordSession(email, password)`: Authenticates a user and starts a secure session (Login).
+- `account.deleteSession('current')`: Terminates the current active session (Logout).
+- `account.get()`: Retrieves the details of the currently authenticated user.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Authentication Service (`AuthService`)
 
-```bash
-ng generate component component-name
-```
+To keep components clean and maintainable, authentication logic is abstracted into an Angular service at `src/app/services/auth/auth.service.ts`. This service acts as a wrapper around the Appwrite SDK.
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+### Implemented Methods:
+- **`register(email, password, name)`**: Creates a new user account with a uniquely generated ID using `ID.unique()`.
+- **`login(email, password)`**: Logs the user in by creating an email/password session.
+- **`logout()`**: Destroys the current user session, effectively logging them out.
+- **`getCurrentUser()`**: Attempts to fetch the current user's profile. If successful, it returns the user object; if it fails (e.g., no active session), it gracefully returns `null`.
 
-```bash
-ng generate --help
-```
+## Route Protection (`AuthGuard`)
 
-## Building
+To ensure that only authenticated users can access specific pages (like viewing or editing notes), the application uses an Angular Route Guard located at `src/app/guards/auth/auth.guard.ts`.
 
-To build the project run:
+The `authGuard` is implemented as a `CanActivateFn`:
+1. It injects the `AuthService` and Angular `Router`.
+2. It calls `authService.getCurrentUser()` to verify if a valid session exists.
+3. If a user is authenticated, it returns `true`, permitting navigation to the requested route.
+4. If no user is authenticated, it prevents access and redirects the user to the `/login` page by returning a `UrlTree`.
 
-```bash
-ng build
-```
+## Application Routes (`app.routes.ts`)
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+The routing configuration in `src/app/app.routes.ts` defines the navigation structure of the app and dictates which routes are public and which are private.
 
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+### Route Breakdown:
+- **`/` (Notes Home)**: Renders the `NotesHomeComponent`. **Protected** by `authGuard`.
+- **`/login`**: Renders the `LoginComponent`. Publicly accessible.
+- **`/register`**: Renders the `RegisterComponent`. Publicly accessible.
+- **`/notes/:id`**: Renders the `NoteViewComponent` to display a specific note. **Protected** by `authGuard`.
+- **`/notes/:id/edit`**: Renders the `NoteEditComponent` to modify an existing note. **Protected** by `authGuard`.
+- **`**` (Wildcard)**: Acts as a fallback, redirecting any invalid or unknown URLs back to the home route.
