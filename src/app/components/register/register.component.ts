@@ -13,6 +13,7 @@ import { AuthService } from '../../services/auth/auth.service';
 })
 export class RegisterComponent {
   registerForm: FormGroup;
+  errorMessage: string | null = null;
 
   constructor(
     private fb: FormBuilder, 
@@ -27,6 +28,7 @@ export class RegisterComponent {
   }
 
   async onSubmit() {
+    this.errorMessage = null;
     // if all the form fields are valid
     if (this.registerForm.valid) {
       try {
@@ -34,8 +36,13 @@ export class RegisterComponent {
         const user = await this.authService.register(email, password, name);
         console.log('User registered:', user);
         this.router.navigate(['/login']);
-      } catch (e) {
+      } catch (e: any) {
         console.error(e);
+        if (e.code === 409 || (e.message && e.message.includes('already exists'))) {
+          this.errorMessage = 'A user with the same email already exists. Please log in instead.';
+        } else {
+          this.errorMessage = e.message || 'An error occurred during registration. Please try again.';
+        }
       }
     } else {
       this.registerForm.markAllAsTouched();
