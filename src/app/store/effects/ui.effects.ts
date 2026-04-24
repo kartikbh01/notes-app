@@ -11,7 +11,7 @@ export class UiEffects {
     this.actions$.pipe(
       ofType(UiActions.loadTheme),
       map(() => {
-        const storedTheme = localStorage.getItem('theme');
+        const storedTheme = localStorage.getItem('theme') || "dark";
         const theme = storedTheme === 'dark' ? 'dark' : 'light';
         return UiActions.loadThemeSuccess({ theme });
       })
