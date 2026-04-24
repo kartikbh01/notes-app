@@ -5,6 +5,10 @@
       <p>Log in to access your notes</p>
     </div>
 
+    <div class="form-error" *ngIf="errorMessage">
+      {{ errorMessage }}
+    </div>
+
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="auth-form">
       <div class="input-group">
         <input type="email" id="email" formControlName="email" placeholder=" " autocomplete="email">

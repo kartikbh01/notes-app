@@ -13,6 +13,7 @@ import { AuthService } from '../../services/auth/auth.service';
 })
 export class LoginComponent {
   loginForm: FormGroup;
+  errorMessage: string | null = null;
 
   constructor(
     private fb: FormBuilder, 
@@ -26,14 +27,20 @@ export class LoginComponent {
   }
 
   async onSubmit() {
+    this.errorMessage = null;
     if (this.loginForm.valid) {
       try {
         const { email, password } = this.loginForm.value;
         const result = await this.authService.login(email, password);
         console.log('Login successful:', result);
         this.router.navigate(['/']);
-      } catch (e) {
+      } catch (e: any) {
         console.error(e);
+        if (e.code === 401 || (e.message && e.message.includes('Invalid credentials'))) {
+          this.errorMessage = 'Invalid credentials. Please check the email and password.';
+        } else {
+          this.errorMessage = e.message || 'An error occurred during login. Please try again.';
+        }
       }
     } else {
       this.loginForm.markAllAsTouched();

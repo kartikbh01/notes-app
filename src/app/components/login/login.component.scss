@@ -83,6 +83,18 @@
   }
 }
 
+.form-error {
+  @include themed(color, danger);
+  padding: 0.75rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+  text-align: center;
+  background-color: rgba(255, 0, 0, 0.05);
+  border: 1px dashed currentColor;
+  animation: fadeIn 0.3s ease;
+}
+
 .auth-form {
   display: flex;
   flex-direction: column;
