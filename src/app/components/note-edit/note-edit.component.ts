@@ -6,6 +6,7 @@ import { Store } from '@ngrx/store';
 import { Note } from '../../models/note.model';
 import { updateNote } from '../../store/actions/note.actions';
 import { NavbarComponent } from '../navbar/navbar.component';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-note-edit',
@@ -22,10 +23,11 @@ export class NoteEditComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private store: Store
+    private store: Store,
+    private authService: AuthService
   ) {}
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     const id = this.route.snapshot.paramMap.get('id');
     if (!id) {
       this.noteExists = false;
@@ -33,7 +35,9 @@ export class NoteEditComponent implements OnInit {
     }
 
     this.noteId = id;
-    const notes = JSON.parse(localStorage.getItem('notes') || '[]') as Note[];
+    const user = await this.authService.getCurrentUser();
+    const userId = user ? user.$id : 'guest';
+    const notes = JSON.parse(localStorage.getItem(`notes_${userId}`) || '[]') as Note[];
     const note = notes.find((entry) => entry.id === id);
 
     if (!note) {
