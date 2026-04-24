@@ -27,8 +27,9 @@
       </div>
 
       <div class="form-actions">
-        <button type="submit" class="btn-primary" [disabled]="loginForm.invalid">
-          <span>Sign In</span>
+        <button type="submit" class="btn-primary" [disabled]="loginForm.invalid || isLoading">
+          <span *ngIf="isLoading" class="spinner"></span>
+          <span>{{ isLoading ? 'Signing In...' : 'Sign In' }}</span>
           <div class="btn-glow"></div>
         </button>
       </div>

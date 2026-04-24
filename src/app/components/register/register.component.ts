@@ -14,6 +14,7 @@ import { AuthService } from '../../services/auth/auth.service';
 export class RegisterComponent {
   registerForm: FormGroup;
   errorMessage: string | null = null;
+  isLoading: boolean = false;
 
   constructor(
     private fb: FormBuilder, 
@@ -23,7 +24,7 @@ export class RegisterComponent {
     this.registerForm = this.fb.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]]
+      password: ['', [Validators.required, Validators.minLength(8)]]
     });
   }
 
@@ -31,6 +32,7 @@ export class RegisterComponent {
     this.errorMessage = null;
     // if all the form fields are valid
     if (this.registerForm.valid) {
+      this.isLoading = true;
       try {
         const { email, password, name } = this.registerForm.value;
         const user = await this.authService.register(email, password, name);
@@ -43,6 +45,8 @@ export class RegisterComponent {
         } else {
           this.errorMessage = e.message || 'An error occurred during registration. Please try again.';
         }
+      } finally {
+        // this.isLoading = false;
       }
     } else {
       this.registerForm.markAllAsTouched();

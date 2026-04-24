@@ -30,13 +30,14 @@
         <input type="password" id="password" formControlName="password" placeholder=" " autocomplete="new-password">
         <label for="password">Password</label>
         <div class="error-text" *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.invalid">
-          Password must be at least 6 characters.
+          Password must be at least 8 characters.
         </div>
       </div>
 
       <div class="form-actions">
-        <button type="submit" class="btn-primary" [disabled]="registerForm.invalid">
-          <span>Sign Up</span>
+        <button type="submit" class="btn-primary" [disabled]="registerForm.invalid || isLoading">
+          <span *ngIf="isLoading" class="spinner"></span>
+          <span>{{ isLoading ? 'Signing Up...' : 'Sign Up' }}</span>
           <div class="btn-glow"></div>
         </button>
       </div>

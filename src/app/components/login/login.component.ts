@@ -14,9 +14,10 @@ import { AuthService } from '../../services/auth/auth.service';
 export class LoginComponent {
   loginForm: FormGroup;
   errorMessage: string | null = null;
+  isLoading: boolean = false;
 
   constructor(
-    private fb: FormBuilder, 
+    private fb: FormBuilder,
     private router: Router,
     private authService: AuthService
   ) {
@@ -29,6 +30,7 @@ export class LoginComponent {
   async onSubmit() {
     this.errorMessage = null;
     if (this.loginForm.valid) {
+      this.isLoading = true;
       try {
         const { email, password } = this.loginForm.value;
         const result = await this.authService.login(email, password);
