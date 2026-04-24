@@ -5,6 +5,7 @@ import { NotesHomeComponent } from './components/notes-home/notes-home.component
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { authGuard } from './guards/auth/auth.guard';
+import { loggedOutGuard } from './guards/logged-out/logged-out.guard';
 
 export const routes: Routes = [
   {
@@ -15,10 +16,12 @@ export const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
+    canActivate: [loggedOutGuard]
   },
   {
     path: 'register',
-    component: RegisterComponent
+    component: RegisterComponent,
+    canActivate: [loggedOutGuard]
   },
   {
     path: 'notes/:id',
